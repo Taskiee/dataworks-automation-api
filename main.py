@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import tasks
+from tasks import execute_task  # Import the function correctly
 
 app = FastAPI()
 
@@ -9,4 +9,6 @@ def read_root():
 
 @app.post("/run-task/{task_id}")
 def run_task(task_id: str):
-    return tasks.execute_task(task_id)
+    """Executes a given task based on task_id"""
+    result = execute_task(task_id)
+    return {"task_id": task_id, "status": result}
